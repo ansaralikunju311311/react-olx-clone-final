@@ -16,7 +16,9 @@ const Sell = () => {
   const [priceValue, setPrice] = useState('');
   const [phonenumber, setPhonenumber] = useState('');
   const [description, setDescription] = useState('');
+  const [location,SetLocation] = useState('')
   const [file, setFile] = useState(null);
+
   const [uploadError, setUploadError] = useState(null); // For showing upload errors
 
   useEffect(() => {
@@ -77,6 +79,7 @@ const Sell = () => {
         phoneNumber: phonenumber,
         description,
         imageUrl,
+        // location:location,
         createdAt: new Date().toISOString(),
         uid: propsUser.uid,
       });
@@ -88,6 +91,7 @@ const Sell = () => {
       setPhonenumber('');
       setProductname('');
       setPrice('');
+      // SetLocation('');
       setFile(null);
     } catch (error) {
       console.error('Firestore error:', error.message);
@@ -150,6 +154,32 @@ const Sell = () => {
               <p className="text-red-500 text-sm">{errors.phoneNumber.message}</p>
             )}
           </div>
+          <div>
+          {/* <label htmlFor="Location" className="block text-sm font-medium text-gray-600">
+              Location
+            </label>
+            <input type="text" 
+              placeholder='enter  the location'
+
+              {...register('location',{required:'location is required',minLength:{value:3,message:'enter the location properly'}})}
+              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={(e) => SetLocation(e.target.value)}
+
+
+            />
+            {errors.location && (
+              <p className="text-red-500 text-sm">{errors.location.message}</p>
+            )} */}
+
+          </div>
+
+
+
+
+
+
+
+
 
           {/* Price */}
           <div>

@@ -101,7 +101,7 @@ useEffect(()=>
                     <div className="flex items-center justify-around mb-8">
                       <FontAwesomeIcon icon={faUser}/>
                       <p className="font-bold text-2xl">
-                        {propsUser.displayName || "Guest"}
+                        {propsUser.displayName}
       
                       </p>
                     </div>
