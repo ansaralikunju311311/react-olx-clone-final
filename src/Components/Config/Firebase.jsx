@@ -1,13 +1,3 @@
-
-
-
-
-
-
-
-
-
-
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -19,10 +9,6 @@ import {getAuth,GoogleAuthProvider} from 'firebase/auth'
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-
-
-
-
   apiKey: "AIzaSyAC-w2NB_OtHRvCZMHcJFwLiSmL2OXwtco",
   authDomain: "olxproject-e276f.firebaseapp.com",
   projectId: "olxproject-e276f",

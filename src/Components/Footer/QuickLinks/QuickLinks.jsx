@@ -1,4 +1,4 @@
-import React from 'react';
+
 import playstore from '../../../assets/playstore.webp';
 import phone from '../../../assets/appstore.webp';
 
@@ -6,7 +6,7 @@ const QuickLinks = () => {
   return (
     <div className="bg-gray-100 p-8 mx-10">
       <div className="max-w-screen-xl mx-auto flex flex-wrap justify-between items-start">
-        {/* Popular Locations */}
+      
         <div className="w-full md:w-1/5 mb-8 md:mb-0">
           <h4 className="text-base font-bold mb-4">POPULAR LOCATIONS</h4>
           <ul className="space-y-2 text-sm">
@@ -17,7 +17,7 @@ const QuickLinks = () => {
           </ul>
         </div>
 
-        {/* Trending Locations */}
+      
         <div className="w-full md:w-1/5 mb-8 md:mb-0">
           <h4 className="text-base font-bold mb-4">TRENDING LOCATIONS</h4>
           <ul className="space-y-2 text-sm">
@@ -28,7 +28,7 @@ const QuickLinks = () => {
           </ul>
         </div>
 
-        {/* About Us */}
+     
         <div className="w-full md:w-1/5 mb-8 md:mb-0">
           <h4 className="text-base font-bold mb-4">ABOUT US</h4>
           <ul className="space-y-2 text-sm">
@@ -36,7 +36,7 @@ const QuickLinks = () => {
           </ul>
         </div>
 
-        {/* OLX */}
+        
         <div className="w-full md:w-1/5 mb-8 md:mb-0">
           <h4 className="text-base font-bold mb-4">OLX</h4>
           <ul className="space-y-2 text-sm">
@@ -48,7 +48,7 @@ const QuickLinks = () => {
           </ul>
         </div>
 
-        {/* Follow Us */}
+       
         <div className="w-full md:w-1/5 md:order-last flex flex-col items-center md:items-end">
           <h3 className="text-base font-bold mb-4">Follow Us</h3>
           <div className="flex space-x-4">

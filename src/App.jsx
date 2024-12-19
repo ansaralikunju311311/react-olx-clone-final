@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate} from "react-router-dom";
 import Home from "./Components/Home/Home";
 import Sell from "./Components/Sell/Sell";
+import ProductDetails from "./Components/ProductDetails/ProductDetails";
+
+
+
 import { auth, provider,db } from "../src/Components/Config/Firebase";
 import { signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
-import {addDoc,doc,collection} from 'firebase/firestore'
+// import {addDoc,doc,collection} from 'firebase/firestore'
 import { createContext } from "react";
 
 // Create Context
@@ -116,9 +120,10 @@ function App() {
     <signincontext.Provider value={{ propsUser,user,handlesigin, handlesigout,onAuthStateChanged,auth}}>
       {/* Common for all routes */}
       <Routes>
-        <Route path="/sell" element={<Sell />} />
+        <Route path="/sell" element={<Sell  />} />
         <Route path="/" element={<Home />}/>
         <Route path="/home" element={<Home />}/>
+        <Route path="/home/product/:id" element={<ProductDetails />}/>
       </Routes>
     </signincontext.Provider>
   );

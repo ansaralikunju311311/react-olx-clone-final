@@ -9,7 +9,7 @@ const Sponser = () => {
   return (
     <div className="bg-green-900 py-6 mx-9">
       <div className="max-w-screen-xl mx-auto flex flex-wrap justify-center items-center space-x-10 px-8 mb-4 ">
-        {/* Sponsor Logos */}
+       
 
         <img src={bikewale} alt="Bikewale" className="h-28 w-28 flex gap-5"/>
         <img src={cartrade} alt="CarTrade" className="h-28 w-28 gap-10"/>
@@ -17,8 +17,7 @@ const Sponser = () => {
         <img src={carwale} alt="CarWale" className="h-28 w-28 gap-5" />
         <img src={mobility} alt="Mobility" className="h-28 w-28 gap-5" />
       </div>
-      {/* Footer Text */}
-
+      
       <div className="text-center text-sm text-white-600 space-y-2">
         <p>
           <a href="#" className="hover:underline">

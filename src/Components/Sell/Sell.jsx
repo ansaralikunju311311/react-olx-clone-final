@@ -1,15 +1,18 @@
-import React, { useContext, useState, useEffect } from 'react';
+import  { useContext, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { signincontext } from '../../App';
+
 import { db } from '../Config/Firebase';
 import { setDoc, collection, addDoc } from 'firebase/firestore';
 
 const Sell = () => {
-  const { auth, propsUser,user } = useContext(signincontext); // Use signincontext to get the authenticated user
+
+  const { auth, propsUser,user } = useContext(signincontext); 
+
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [productName, setProductname] = useState('');
@@ -19,12 +22,11 @@ const Sell = () => {
   const [location,SetLocation] = useState('')
   const [file, setFile] = useState(null);
 
-  const [uploadError, setUploadError] = useState(null); // For showing upload errors
-
+  const [uploadError, setUploadError] = useState(null); 
   useEffect(() => {
     if (!user) {
       alert('Please log in to access this page.');
-      navigate('/'); // Redirect to login if not authenticated
+      navigate('/'); 
     }
   }, [user]);
 
@@ -36,13 +38,13 @@ const Sell = () => {
     if (!file) throw new Error('No file selected for upload');
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'testing'); // Replace with your Cloudinary preset
+    formData.append('upload_preset', 'testing'); 
     try {
       const response = await axios.post(
         'https://api.cloudinary.com/v1_1/dliraelbo/image/upload',
         formData
       );
-      return response.data.url; // Return the Cloudinary URL
+      return response.data.url; 
     } catch (error) {
       console.error('Cloudinary upload error:', error.message);
       return null;
@@ -79,19 +81,22 @@ const Sell = () => {
         phoneNumber: phonenumber,
         description,
         imageUrl,
-        // location:location,
+        location:location,
         createdAt: new Date().toISOString(),
         uid: propsUser.uid,
+        
       });
      
       console.log(db)
      
       alert('Product added successfully');
+  
+      
       setDescription('');
       setPhonenumber('');
       setProductname('');
       setPrice('');
-      // SetLocation('');
+      SetLocation('');
       setFile(null);
     } catch (error) {
       console.error('Firestore error:', error.message);
@@ -102,6 +107,8 @@ const Sell = () => {
  
 
   return (
+    <>
+   
     <div className="flex justify-center items-center min-h-screen bg-gray-100 mx-8">
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
         <div className="mb-4">
@@ -155,7 +162,7 @@ const Sell = () => {
             )}
           </div>
           <div>
-          {/* <label htmlFor="Location" className="block text-sm font-medium text-gray-600">
+          <label htmlFor="Location" className="block text-sm font-medium text-gray-600">
               Location
             </label>
             <input type="text" 
@@ -169,19 +176,10 @@ const Sell = () => {
             />
             {errors.location && (
               <p className="text-red-500 text-sm">{errors.location.message}</p>
-            )} */}
+            )}
 
           </div>
 
-
-
-
-
-
-
-
-
-          {/* Price */}
           <div>
             <label htmlFor="price" className="block text-sm font-medium text-gray-600">
               Price
@@ -199,7 +197,7 @@ const Sell = () => {
             )}
           </div>
 
-          {/* Description */}
+         
           <div>
             <label htmlFor="description" className="block text-sm font-medium text-gray-600">
               Description
@@ -219,7 +217,7 @@ const Sell = () => {
             )}
           </div>
 
-          {/* Image Upload */}
+        
           <div>
             <label htmlFor="file" className="block text-sm font-medium text-gray-600">
               Upload Image
@@ -232,7 +230,7 @@ const Sell = () => {
             />
           </div>
 
-          {/* Submit Button */}
+          
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200"
@@ -243,6 +241,7 @@ const Sell = () => {
         {uploadError && <p className="text-red-500 text-center mt-4">{uploadError}</p>}
       </div>
     </div>
+    </>
   );
 };
 

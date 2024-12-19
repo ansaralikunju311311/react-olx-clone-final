@@ -8,9 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import googleIcon from '../../assets/google-icon.png'
 import loginGuitarImg from '../../assets/login-guitar.webp'
 import Modalgoogle from '../Modal/Modalgoogle';
-
 const NavBar = () => {
-
 const navigate = useNavigate();
 const [viewprofile,setviewProfile] = useState(false);
 const [isModalVisible, setIsModalVisible] = useState(false);
@@ -26,7 +24,7 @@ const handlesell = ()=>
     navigate('/sell');
   }
   else{
-    // alert('please login then sell')
+    
     openModal()
   }
 }
@@ -52,8 +50,6 @@ useEffect(()=>
     }
   
   },[user])
-
-  
   return (
     <div className='flex items-center w-full px-4 py-2 bg-white shadow-md'>
 
@@ -92,8 +88,6 @@ useEffect(()=>
       {user?( <button className='text-sm font-medium text-blue-600 border border-blue-600 px-4 py-1 rounded-md hover:bg-blue-100'
           onClick={showProfile} >
              <FontAwesomeIcon icon={faUser}/> <FontAwesomeIcon icon={faAngleDown} onClick={showProfile}/>
-             {/* {viewprofile?(<h1>hellooo</h1>):null} */}
-
              {viewprofile && user ? (
                 <div className="absolute top-12 right-[-5px] w-[300px] bg-white shadow-md">
                   <div className="absolute right-0 top-[-15px] w-0 h-0 border-l-[15px] border-l-transparent border-r-[15px] border-r-transparent border-b-[15px] border-b-white "></div>
@@ -127,7 +121,6 @@ useEffect(()=>
         onClick={openModal}>
            Login 
         </button>)}
-
       </div>
         <Modalgoogle isVisible={isModalVisible} onclose={closeModal}>
         <div className="flex flex-col justify-center items-center gap-8">
@@ -147,8 +140,6 @@ useEffect(()=>
           </div>
 
         </Modalgoogle>
-
-
       <div>
         <img src={sell} alt="Sell" className='h-10 cursor-pointer' onClick={handlesell}/>
       </div>

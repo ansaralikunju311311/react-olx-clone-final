@@ -1,7 +1,4 @@
-import React from "react";
-
 const Modalgoogle = ({ isVisible ,children,onclose}) => {
-//   console.log({children})
   if (!isVisible) return null;
 
   return (
