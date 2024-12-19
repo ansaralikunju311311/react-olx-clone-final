@@ -22,6 +22,7 @@ const handlesell = ()=>
 {
   if(user)
   {
+
     navigate('/sell');
   }
   else{
@@ -39,11 +40,12 @@ const closeModal = ()=>
   setIsModalVisible(false)
 }
 
-const {handlesigin,user,handlesigout} = useContext(signincontext);
+const {handlesigin,propsUser,handlesigout,user} = useContext(signincontext);
+
 useEffect(()=>
   {
     console.log('the user fommr their ' ,user);
-    console.log('the active user is ',user.displayName)
+    console.log('the active user is ',propsUser.displayName)
     if(user)
     {
       setIsModalVisible(false)
@@ -99,7 +101,7 @@ useEffect(()=>
                     <div className="flex items-center justify-around mb-8">
                       <FontAwesomeIcon icon={faUser}/>
                       <p className="font-bold text-2xl">
-                        {user.displayName || "Guest"}
+                        {propsUser.displayName || "Guest"}
       
                       </p>
                     </div>

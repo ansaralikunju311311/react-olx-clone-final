@@ -1,50 +1,102 @@
-
-
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'
+import axios from 'axios';
 import { signincontext } from '../../App';
+import { db } from '../Config/Firebase';
+import { setDoc, collection, addDoc } from 'firebase/firestore';
 
 const Sell = () => {
-    const {auth,onAuthStateChanged,user} = useContext(signincontext);
+  const { auth, propsUser,user } = useContext(signincontext); // Use signincontext to get the authenticated user
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [productName, setProductname] = useState('');
+  const [priceValue, setPrice] = useState('');
+  const [phonenumber, setPhonenumber] = useState('');
+  const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
+  const [uploadError, setUploadError] = useState(null); // For showing upload errors
 
+  useEffect(() => {
+    if (!user) {
+      alert('Please log in to access this page.');
+      navigate('/'); // Redirect to login if not authenticated
+    }
+  }, [user]);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
+
   const uploadToCloudinary = async () => {
     if (!file) throw new Error('No file selected for upload');
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'testing'); // Replace with your Cloudinary preset
-    const response = await axios.post(
-      'https://api.cloudinary.com/v1_1/dliraelbo/image/upload',
-      formData
-    );
-    // console.log(response.data.url)
-    return response.data.secure_url; // Return the Cloudinary URL
-  
+    try {
+      const response = await axios.post(
+        'https://api.cloudinary.com/v1_1/dliraelbo/image/upload',
+        formData
+      );
+      return response.data.url; // Return the Cloudinary URL
+    } catch (error) {
+      console.error('Cloudinary upload error:', error.message);
+      return null;
+    }
   };
-  const onSubmit =async()=>
-  {
-      if(user)
-      {
-        try {
-            const imageurl = await uploadToCloudinary();
-            console.log(`thisis image url`,imageurl)
-            alert('add posted success');
-            navigate('/home');  
-        } catch (error) {
-               console.log(error)
-        }
+
+
+  const onSubmit = async () => {
+    console.log('fnjjvnjf')
+    if (user) {
+      try {
+        const imageUrl = await uploadToCloudinary();
+        if (!imageUrl) throw new Error('Image upload failed');
+         await uploadToFirestore(imageUrl);
+        
+        navigate('/home');
+        
+      } catch (error) {
+        console.error('Error posting product:', error.message);
+        setUploadError(error.message);
       }
-  }
+    }
+  };
+  const uploadToFirestore = async (imageUrl) => {
+    console.log(imageUrl)
+    console.log(`dbygef`,propsUser);
+    console.log(propsUser.uid);
+    try {
+      console.log('gvhgvhgvgvg'),
+      await addDoc(collection(db, 'products'), {
+        
+        productName,
+        price: priceValue,
+        phoneNumber: phonenumber,
+        description,
+        imageUrl,
+        createdAt: new Date().toISOString(),
+        uid: propsUser.uid,
+      });
+     
+      console.log(db)
+     
+      alert('Product added successfully');
+      setDescription('');
+      setPhonenumber('');
+      setProductname('');
+      setPrice('');
+      setFile(null);
+    } catch (error) {
+      console.error('Firestore error:', error.message);
+      throw new Error('Failed to store product details in Firestore');
+    }
+  };
+
+ 
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 mx-8">
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
@@ -68,6 +120,7 @@ const Sell = () => {
               placeholder="Product Name"
               {...register('productName', { required: 'Product name is required' })}
               className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={(e) => setProductname(e.target.value)}
             />
             {errors.productName && (
               <p className="text-red-500 text-sm">{errors.productName.message}</p>
@@ -90,6 +143,7 @@ const Sell = () => {
                   message: 'Enter a valid 10-digit phone number',
                 },
               })}
+              onChange={(e) => setPhonenumber(e.target.value)}
               className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.phoneNumber && (
@@ -108,6 +162,7 @@ const Sell = () => {
               placeholder="Enter the price"
               {...register('price', { required: 'Price is required', min: { value: 1, message: 'Price must be greater than 0' } })}
               className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={(e) => setPrice(e.target.value)}
             />
             {errors.price && (
               <p className="text-red-500 text-sm">{errors.price.message}</p>
@@ -127,6 +182,7 @@ const Sell = () => {
                 minLength: { value: 20, message: 'Description must be at least 20 characters' },
               })}
               className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={(e) => setDescription(e.target.value)}
             ></textarea>
             {errors.description && (
               <p className="text-red-500 text-sm">{errors.description.message}</p>
@@ -150,10 +206,11 @@ const Sell = () => {
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200"
-           >
+          >
             Post Now
           </button>
         </form>
+        {uploadError && <p className="text-red-500 text-center mt-4">{uploadError}</p>}
       </div>
     </div>
   );
