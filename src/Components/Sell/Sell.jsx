@@ -87,7 +87,7 @@ const Sell = () => {
         
       });
      
-      console.log(db)
+      
      
       alert('Product added successfully');
   

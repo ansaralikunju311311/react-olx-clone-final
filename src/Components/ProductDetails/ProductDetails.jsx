@@ -1,10 +1,11 @@
 
-import  { useEffect, useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../Config/Firebase';
 import { useParams } from 'react-router-dom';
+import { signincontext } from '../../App';
 const ProductDetails = () => {
-
+    const {propsUser} = useContext(signincontext)
  
     const {id} = useParams();
   
@@ -69,7 +70,7 @@ const ProductDetails = () => {
             </div>
             <div>
               <h1 className="font-bold text-2xl">Seller</h1>
-              <p className="text-xl mt-4">{product.sellerName || 'Unknown'}</p>
+              <p className="text-xl mt-4">{propsUser.displayName}</p>
             </div>
           </div>
           <h1 className="font-bold text-2xl mt-8">Price</h1>

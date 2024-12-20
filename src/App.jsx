@@ -22,57 +22,6 @@ function App() {
   const [email,Setemail] = useState(null)
   const navigate = useNavigate();
 
-  // const handlesigin = async () => {
-  //   try {
-  //     const result = await signInWithPopup(auth, provider);
-  //     const user = result.user;
-  //     console.log('user',user);
-  //     console.log('resultuser',result.user);
-  //     console.log('result',result)
-
-  //      await setDoc(doc(db,"user",user.uid),{
-  //       email:user.email,
-  //       uid:user.uid,
-  //       createdAt:new Date().toISOString(),
-  //      })
-
-  //   // console.log(email,user.uid);
-  //      setUser(true);
-  //     navigate("/home");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-
-
-  // first 
-  // const handlesigin = async () => {
-  //   try {
-  //     const result = await signInWithPopup(auth, provider);
-  //     const user = result.user;
-  //     console.log('user', user);
-  
-  //    const stored =  await setDoc(doc(db, "user", user.uid), {
-  //       email: user.email,
-  //       uid: user.uid,
-  //       createdAt: new Date().toISOString(),
-        
-  //     });
-  //     console.log(`storingdara`,stored)
-  
-  //     // Ensure state updates before navigation
-  //     setUser(true); // Update state
-       
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-
-  // second
-
-
   const handlesigin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
@@ -80,11 +29,7 @@ function App() {
       setProps(userid)
       console.log('User authenticated:', userid);
   
-      // await addDoc(collection(db, "user"), {
-      //   email: user.email,
-      //   uid: user.uid,
-      //   createdAt: new Date().toISOString(),
-      // });
+     
       console.log("Data successfully written to Firestore");
   
       setUser(true);

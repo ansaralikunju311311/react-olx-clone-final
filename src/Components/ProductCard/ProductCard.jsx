@@ -15,7 +15,7 @@ const ProductCard = () => {
         return {
           id: doc.id,
           ...data,
-          createdAt: new Date().toISOString(),
+          // createdAt: new Date().toISOString(),
         };
       });
       
@@ -40,7 +40,7 @@ const ProductCard = () => {
               productName={product.productName}
               price={product.price}
               phoneNumber={product.phonenumber}
-              createdAt={product.createdAt}
+              // createdAt={product.createdAt}
               imageUrl={product.imageUrl}
               location = {product.location}
               id={product.id}
